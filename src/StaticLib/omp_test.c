@@ -5,12 +5,16 @@
 // a[y_max][x_max]の行列について、x成分の和を求めてsumに入れる
 void add_array(long long* sum, int** a, int x_max, int y_max)
 {
-	for (int y = 0; y < y_max; y++) {
+	//for文のなかで変数定義ダメ（C言語のみ？）
+	int y;
+    #pragma omp parallel for
+	for (y = 0; y < y_max; y++) {
 		sum[y] = 0;
 	}
 
-	for (int x = 0; x < x_max; x++) {
-		for (int y = 0; y < y_max; y++) {
+    #pragma omp parallel for
+	for(y = 0; y < y_max; y++) {
+		for(int x = 0; x < x_max; x++) {
 			sum[y] += a[y][x];
 		}
 	}
